@@ -1,0 +1,2 @@
+All item images added in assets/images folder.
+Use <img src='assets/images/filename.jpg'> with item names.
