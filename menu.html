@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Advanced Menu</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+
+<script src="auth.js"></script>
+
+<style>
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card img{width:100%;height:140px;object-fit:cover;border-radius:10px}
+select,input{padding:6px;border-radius:6px}
+.badge{padding:2px 6px;border-radius:6px;font-size:12px;color:#fff}
+.veg{background:green}
+.nonveg{background:red}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+.minicart{position:fixed;top:20px;right:20px;background:#ff9800;padding:10px;border-radius:10px}
+</style>
+<script src="helpers.js"></script>
+
+<style>
+@media print {
+    body, * {
+        font-weight: bold !important;
+    }
+}
+</style>
+
+</head>
+
+<body onload="checkLogin();updateMiniCart()">
+
+<header><h1>🍽 Advanced Restaurant Menu</h1>
+        <div style="text-align:center;font-weight:bold;margin:10px">
+          🧾 Total Amount: ₹<span id="liveTotal">0</span>
+        </div>
+        </header>
+        
+
+<div class="container">
+
+<div class="filters">
+<input type="text" id="search" placeholder="Search item..." onkeyup="filterItems()">
+<button onclick="filterType('all')">All</button>
+<button onclick="filterType('veg')">Veg</button>
+<button onclick="filterType('nonveg')">Non-Veg</button>
+</div>
+
+<div class="minicart" onclick="location.href='dashboard.html'">
+🛒 Cart: <span id="cartCount">0</span>
+</div>
+
+<div class="cards" id="menuCards">
+
+    <div class="card" data-name="pizza" data-type="nonveg">
+      <img src="assets/images/item_pic/pizza.jpg">
+      <h3>Pizza <span class="badge nonveg">NONVEG</span></h3>
+      <select id="pizzaSize">
+        <option value="Full">Full ₹250</option>
+        <option value="Half">Half ₹150</option>
+        <option value="Quarter">Quarter ₹100</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Pizza',250,document.getElementById('pizzaSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="burger" data-type="veg">
+      <img src="assets/images/item_pic/bargur.jpg">
+      <h3>Burger <span class="badge veg">VEG</span></h3>
+      <select id="burgerSize">
+        <option value="Full">Full ₹120</option>
+        <option value="Half">Half ₹72</option>
+        <option value="Quarter">Quarter ₹48</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Burger',120,document.getElementById('burgerSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="pasta" data-type="veg">
+      <img src="assets/images/item_pic/pasta.jfif">
+      <h3>Pasta <span class="badge veg">VEG</span></h3>
+      <select id="pastaSize">
+        <option value="Full">Full ₹180</option>
+        <option value="Half">Half ₹108</option>
+        <option value="Quarter">Quarter ₹72</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Pasta',180,document.getElementById('pastaSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="sandwich" data-type="veg">
+      <img src="assets/images/item_pic/sandwitch.jfif">
+      <h3>Sandwich <span class="badge veg">VEG</span></h3>
+      <select id="sandwichSize">
+        <option value="Full">Full ₹90</option>
+        <option value="Half">Half ₹54</option>
+        <option value="Quarter">Quarter ₹36</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Sandwich',90,document.getElementById('sandwichSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="noodles" data-type="veg">
+      <img src="assets/images/item_pic/noodles.jfif">
+      <h3>Noodles <span class="badge veg">VEG</span></h3>
+      <select id="noodlesSize">
+        <option value="Full">Full ₹150</option>
+        <option value="Half">Half ₹90</option>
+        <option value="Quarter">Quarter ₹60</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Noodles',150,document.getElementById('noodlesSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="manchurian" data-type="veg">
+      <img src="assets/images/item_pic/manchuriun.jfif">
+      <h3>Manchurian <span class="badge veg">VEG</span></h3>
+      <select id="manchurianSize">
+        <option value="Full">Full ₹160</option>
+        <option value="Half">Half ₹96</option>
+        <option value="Quarter">Quarter ₹64</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Manchurian',160,document.getElementById('manchurianSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="dosa" data-type="veg">
+      <img src="assets/images/item_pic/dosa.jfif">
+      <h3>Dosa <span class="badge veg">VEG</span></h3>
+      <select id="dosaSize">
+        <option value="Full">Full ₹110</option>
+        <option value="Half">Half ₹66</option>
+        <option value="Quarter">Quarter ₹44</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Dosa',110,document.getElementById('dosaSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="idli" data-type="veg">
+      <img src="assets/images/item_pic/idli.jfif">
+      <h3>Idli <span class="badge veg">VEG</span></h3>
+      <select id="idliSize">
+        <option value="Full">Full ₹80</option>
+        <option value="Half">Half ₹48</option>
+        <option value="Quarter">Quarter ₹32</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Idli',80,document.getElementById('idliSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="paneer" data-type="veg">
+      <img src="assets/images/item_pic/paneer.jfif">
+      <h3>Paneer <span class="badge veg">VEG</span></h3>
+      <select id="paneerSize">
+        <option value="Full">Full ₹220</option>
+        <option value="Half">Half ₹132</option>
+        <option value="Quarter">Quarter ₹88</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Paneer',220,document.getElementById('paneerSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="chicken curry" data-type="nonveg">
+      <img src="assets/images/item_pic/chicken curry.jfif">
+      <h3>Chicken Curry <span class="badge nonveg">NONVEG</span></h3>
+      <select id="chickencurrySize">
+        <option value="Full">Full ₹280</option>
+        <option value="Half">Half ₹168</option>
+        <option value="Quarter">Quarter ₹112</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Chicken Curry',280,document.getElementById('chickencurrySize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="fried rice" data-type="veg">
+      <img src="assets/images/item_pic/ice cream.jfif">
+      <h3>Fried Rice <span class="badge veg">VEG</span></h3>
+      <select id="friedriceSize">
+        <option value="Full">Full ₹170</option>
+        <option value="Half">Half ₹102</option>
+        <option value="Quarter">Quarter ₹68</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Fried Rice',170,document.getElementById('friedriceSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="biryani" data-type="nonveg">
+      <img src="assets/images/item_pic/biryani.jfif">
+      <h3>Biryani <span class="badge nonveg">NONVEG</span></h3>
+      <select id="biryaniSize">
+        <option value="Full">Full ₹300</option>
+        <option value="Half">Half ₹180</option>
+        <option value="Quarter">Quarter ₹120</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Biryani',300,document.getElementById('biryaniSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="cold drink" data-type="veg">
+      <img src="assets/images/item_pic/cold drink.jfif">
+      <h3>Cold Drink <span class="badge veg">VEG</span></h3>
+      <select id="colddrinkSize">
+        <option value="Full">Full ₹60</option>
+        <option value="Half">Half ₹36</option>
+        <option value="Quarter">Quarter ₹24</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Cold Drink',60,document.getElementById('colddrinkSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="coffee" data-type="veg">
+      <img src="assets/images/item_pic/coffee.jfif">
+      <h3>Coffee <span class="badge veg">VEG</span></h3>
+      <select id="coffeeSize">
+        <option value="Full">Full ₹70</option>
+        <option value="Half">Half ₹42</option>
+        <option value="Quarter">Quarter ₹28</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Coffee',70,document.getElementById('coffeeSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="tea" data-type="veg">
+      <img src="assets/images/item_pic/tea.jfif">
+      <h3>Tea <span class="badge veg">VEG</span></h3>
+      <select id="teaSize">
+        <option value="Full">Full ₹40</option>
+        <option value="Half">Half ₹24</option>
+        <option value="Quarter">Quarter ₹16</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Tea',40,document.getElementById('teaSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="ice cream" data-type="veg">
+      <img src="assets/images/item_pic/ice cream.jfif">
+      <h3>Ice Cream <span class="badge veg">VEG</span></h3>
+      <select id="icecreamSize">
+        <option value="Full">Full ₹90</option>
+        <option value="Half">Half ₹54</option>
+        <option value="Quarter">Quarter ₹36</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Ice Cream',90,document.getElementById('icecreamSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="cake" data-type="veg">
+      <img src="assets/images/item_pic/cake.jfif">
+      <h3>Cake <span class="badge veg">VEG</span></h3>
+      <select id="cakeSize">
+        <option value="Full">Full ₹140</option>
+        <option value="Half">Half ₹84</option>
+        <option value="Quarter">Quarter ₹56</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Cake',140,document.getElementById('cakeSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="roll" data-type="veg">
+      <img src="assets/images/item_pic/rolls.jfif">
+      <h3>Roll <span class="badge veg">VEG</span></h3>
+      <select id="rollSize">
+        <option value="Full">Full ₹100</option>
+        <option value="Half">Half ₹60</option>
+        <option value="Quarter">Quarter ₹40</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Roll',100,document.getElementById('rollSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="soup" data-type="veg">
+      <img src="assets/images/item_pic/soup.jfif">
+      <h3>Soup <span class="badge veg">VEG</span></h3>
+      <select id="soupSize">
+        <option value="Full">Full ₹130</option>
+        <option value="Half">Half ₹78</option>
+        <option value="Quarter">Quarter ₹52</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Soup',130,document.getElementById('soupSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+    <div class="card" data-name="salad" data-type="veg">
+      <img src="assets/images/item_pic/salad.jfif">
+      <h3>Salad <span class="badge veg">VEG</span></h3>
+      <select id="saladSize">
+        <option value="Full">Full ₹120</option>
+        <option value="Half">Half ₹72</option>
+        <option value="Quarter">Quarter ₹48</option>
+      </select>
+      <br><br>
+      <button onclick="addToCart('Salad',120,document.getElementById('saladSize').value);updateMiniCart()">
+        🛒 Add to Cart
+      </button>
+    </div>
+    
+</div>
+</div>
+
+<script>
+function filterItems(){
+ let q=document.getElementById("search").value.toLowerCase();
+ document.querySelectorAll(".card").forEach(c=>{
+  c.style.display = c.dataset.name.includes(q) ? "block":"none";
+ });
+}
+
+function filterType(t){
+ document.querySelectorAll(".card").forEach(c=>{
+  if(t==="all"||c.dataset.type===t) c.style.display="block";
+  else c.style.display="none";
+ });
+}
+
+function updateMiniCart(){
+ let cart = JSON.parse(localStorage.getItem("cart"))||[];
+ document.getElementById("cartCount").innerText = cart.length;
+}
+
+function updateLiveTotal(){
+ let cart = JSON.parse(localStorage.getItem("cart")) || [];
+ let total = 0;
+ cart.forEach(i=>{
+   total += (i.price * (i.qty || 1));
+ });
+ document.getElementById("liveTotal").innerText = total;
+}
+</script>
+
+
+<button onclick="history.back()" style="
+position:fixed;bottom:20px;left:20px;
+padding:10px 14px;border:none;border-radius:50%;
+background:#ff9800;font-size:18px;">⬅</button>
+
+
+<div style="position:fixed;bottom:20px;right:20px;">
+  <button onclick="window.location.href='index.html'" style="padding:8px 14px;margin-right:6px;">Home</button>
+  <button onclick="logout()" style="padding:8px 14px;">Logout</button>
+</div>
+
+
+<script>
+function logout(){
+  if(confirm("Do you want to logout?")){
+    localStorage.clear();
+    window.location.href = "login.html";
+  }
+}
+</script>
+
+</body>
+</html>

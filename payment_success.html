@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Success</title>
+    <style>
+        body{font-family:Arial;text-align:center;padding-top:100px;background:#f5f5f5;}
+        .box{background:#fff;padding:40px;border-radius:8px;display:inline-block;box-shadow:0 0 10px #ccc;}
+        h1{color:green;}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Payment Successful ✅</h1>
+        <p>Thank you for your order.</p>
+        <p>Next order page will open in 3 seconds...</p>
+    </div>
+
+    <script>
+        setTimeout(function(){
+            window.location.href = "index.html";
+        }, 3000);
+    </script>
+</body>
+</html>

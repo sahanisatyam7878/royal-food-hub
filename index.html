@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Royal Food Hub - Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{margin:0;font-family:Arial;background:#0f2027;background:linear-gradient(to right,#2c5364,#203a43,#0f2027);color:#fff}
+nav{display:flex;justify-content:space-between;align-items:center;padding:15px 40px;background:rgba(0,0,0,.8);position:sticky;top:0}
+nav a{color:#fff;margin:0 15px;text-decoration:none;font-weight:bold}
+.hero{height:90vh;background:url('assets/images/home_bg.jpg') center/cover no-repeat;display:flex;align-items:center}
+.hero-content{background:rgba(0,0,0,.65);padding:40px;margin-left:50px;border-radius:10px}
+.btn{padding:12px 25px;background:#ff9800;color:#000;border-radius:5px;text-decoration:none;font-weight:bold}
+.section{padding:60px 40px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px}
+.card{background:#1c1c1c;border-radius:15px;overflow:hidden}
+.card img{width:100%;height:160px;object-fit:cover}
+.card h3{text-align:center;padding:15px}
+footer{text-align:center;padding:20px;background:#000}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8)}
+.modal-content{background:#222;padding:30px;border-radius:10px;width:300px;margin:10% auto}
+input{width:100%;padding:10px;margin:8px 0}
+</style>
+<script src="helpers.js"></script>
+
+<style>
+@media print {
+    body, * {
+        font-weight: bold !important;
+    }
+}
+</style>
+
+</head>
+<body onload="checkLogin()">
+
+<nav>
+  <div>🍽️ Royal Food Hub</div>
+  <div>
+    <a href="#" onclick="openLogin()">Login</a>
+    <a href="#" onclick="openRegister()">Register</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Welcome Food Lovers</h1>
+    <p>Login required to access menu</p>
+    <a href="menu.html" class="btn">Go To Menu</a>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Popular Items</h2>
+  <div class="cards">
+    <div class="card"><img src="assets/images/item_pic/pizza.jpg"><h3>Pizza</h3></div>
+    <div class="card"><img src="assets/images/item_pic/bargur.jpg"><h3>Burger</h3></div>
+    <div class="card"><img src="assets/images/item_pic/biryani.jfif"><h3>Biryani</h3></div>
+  </div>
+</section>
+
+<footer>© 2026 Royal Food Hub</footer>
+
+<div class="modal" id="loginBox">
+  <div class="modal-content">
+    <h3>Login</h3>
+    <input id="loginUser" placeholder="Username">
+    <input id="loginPass" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
+</div>
+
+<div class="modal" id="registerBox">
+  <div class="modal-content">
+    <h3>Register</h3>
+    <input id="regUser" placeholder="Username">
+    <input id="regPass" type="password" placeholder="Password">
+    <button onclick="register()">Register</button>
+  </div>
+</div>
+
+<script>
+function openLogin(){document.getElementById('loginBox').style.display='block'}
+function openRegister(){document.getElementById('registerBox').style.display='block'}
+function login(){
+ localStorage.setItem("loggedIn","true");
+ document.getElementById('loginBox').style.display='none';
+ alert("Login successful");
+}
+function register(){
+ alert("Registered successfully. Now login.");
+ document.getElementById('registerBox').style.display='none';
+}
+function logout(){
+ localStorage.removeItem("loggedIn");
+ alert("Logged out");
+ location.reload();
+}
+function checkLogin(){
+ if(!localStorage.getItem("loggedIn")){
+   document.querySelector('.hero-content p').innerText="Please login first";
+ }
+}
+</script>
+
+
+<div class="cart-badge">
+  🛒 Cart: <span id="cartCount">0</span>
+</div>
+
+<button onclick="history.back()" style="position:fixed;bottom:20px;left:20px;padding:10px 16px;border-radius:6px;">
+← Back
+</button>
+
+
+<div style="position:fixed;bottom:20px;right:20px;">
+  <button onclick="window.location.href='index.html'" style="padding:8px 14px;margin-right:6px;">Home</button>
+  <button onclick="logout()" style="padding:8px 14px;">Logout</button>
+</div>
+
+
+<script>
+function logout(){
+  if(confirm("Do you want to logout?")){
+    localStorage.clear();
+    window.location.href = "login.html";
+  }
+}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+
+<!DOCTYPE html><html><head>
+<title>Register</title>
+<link rel="stylesheet" href="style.css">
+<script>
+function register(){
+ localStorage.setItem("user",
+ JSON.stringify({u:uname.value,p:pwd.value}));
+ location.href="login.html";
+}
+</script><script src="helpers.js"></script>
+
+<style>
+@media print {
+    body, * {
+        font-weight: bold !important;
+    }
+}
+</style>
+
+</head>
+<body>
+<header><h1>Register</h1></header>
+<div class="card">
+<input id="uname" placeholder="Username">
+<input id="pwd" type="password" placeholder="Password">
+<button onclick="register()">Register</button>
+</div>
+
+<button onclick="goBack()" style="
+position:fixed;
+bottom:20px;
+left:20px;
+padding:10px 15px;
+border:none;
+border-radius:50%;
+font-size:18px;
+cursor:pointer;
+background:#ff9800;
+color:#000;">⬅</button>
+<script>
+function goBack(){ window.history.back(); }
+</script>
+
+
+<div style="position:fixed;bottom:20px;right:20px;">
+  <button onclick="window.location.href='index.html'" style="padding:8px 14px;margin-right:6px;">Home</button>
+  <button onclick="logout()" style="padding:8px 14px;">Logout</button>
+</div>
+
+
+<script>
+function logout(){
+  if(confirm("Do you want to logout?")){
+    localStorage.clear();
+    window.location.href = "login.html";
+  }
+}
+</script>
+
+</body></html>

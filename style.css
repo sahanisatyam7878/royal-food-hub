@@ -1,0 +1,83 @@
+
+body{
+ margin:0;
+ font-family:Arial;
+ background: linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)), url('bg.jpg');
+ background-size:cover;
+ background-attachment:fixed;
+ color:#fff;
+}
+header{text-align:center;padding:20px}
+.nav a{color:#fff;margin:10px;text-decoration:none;font-weight:bold}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+.card{background:rgba(255,255,255,.15);padding:15px;border-radius:12px;text-align:center}
+input,button{padding:10px;border-radius:6px;border:none;margin:5px}
+
+
+/* FIX CLICK ISSUE */
+.overlay, .bg-overlay {
+  pointer-events: none !important;
+}
+button, table, td {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 5;
+}
+
+/* FINAL CLICK FIX */
+*{pointer-events:auto!important;}
+button{cursor:pointer;z-index:99999;position:relative;}
+
+
+/* PRINT FIX */
+@media print {
+  button { display: none !important; }
+  body { background: white !important; }
+}
+
+
+/* ===============================
+   DEFINITIVE CLICK FIX
+   =============================== */
+* {
+  pointer-events: auto !important;
+}
+
+button, select, input {
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 999999 !important;
+  cursor: pointer !important;
+}
+
+
+.cart-badge{
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  background: #ff5722;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  z-index: 9999;
+}
+
+
+
+/* ===== FIX: Payment Mode Text Visibility ===== */
+.payment-section,
+.payment-section label,
+.payment-section span,
+.payment-box,
+.payment-box label,
+.payment-box span,
+input[type="radio"] + label {
+    color: #000 !important;
+    font-weight: bold !important;
+}
+
+/* Ensure background contrast */
+.payment-section, .payment-box {
+    background: rgba(255,255,255,0.9);
+}

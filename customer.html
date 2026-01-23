@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customer Details</title>
+  <link rel="stylesheet" href="style.css">
+<script src="helpers.js"></script>
+
+<style>
+@media print {
+    body, * {
+        font-weight: bold !important;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<h2>Customer Details</h2>
+
+<form onsubmit="saveCustomer(event)">
+  <input type="text" id="custName" placeholder="Customer Name" required><br><br>
+  <input type="tel" id="custMobile" placeholder="Mobile Number" required><br><br>
+  <textarea id="custAddress" placeholder="Address" required></textarea><br><br>
+
+  <h3>Payment Method</h3>
+  <select id="paymentMethod" onchange="toggleQR()" required>
+    <option value="">Select</option>
+    <option value="COD">Cash On Delivery</option>
+    <option value="UPI">UPI / QR Payment</option>
+  </select><br><br>
+
+  <div id="qrBox" style="display:none;">
+    <h4>Scan QR to Pay</h4>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=demo@upi&pn=RoyalFoodHub" />
+  </div><br>
+
+  <buttonon type="submit">Confirm Order</button>
+</form>
+
+<script src="script.js"></script>
+
+<buttonon onclick="history.back()" style="position:fixed;bottom:20px;left:20px;padding:10px 16px;border-radius:6px;">
+← Back
+</button>
+
+
+<div style="position:fixed;bottom:20px;right:20px;">
+  <buttonon onclick="window.location.href='index.html'" style="padding:8px 14px;margin-right:6px;">Home</button>
+  <buttonon onclick="logout()" style="padding:8px 14px;">Logout</button>
+</div>
+
+
+<script>
+function logout(){
+  if(confirm("Do you want to logout?")){
+    localStorage.clear();
+    window.location.href = "login.html";
+  }
+}
+</script>
+
+</body>
+</html>
